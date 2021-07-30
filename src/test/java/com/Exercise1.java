@@ -16,7 +16,6 @@ public class Exercise1 extends BaseTest {
         homePage.selectRoundTrip();
 
         homePage.LeavingFrom("LAS");
-        Thread.sleep(3000);
         homePage.GoingTo2("LAX");
         homePage.Departing2();
         homePage.Returning2();
@@ -31,7 +30,6 @@ public class Exercise1 extends BaseTest {
         searchPage.verifySortByDepartureLatest();
         searchPage.verifySortByArrivalEarliest();
         searchPage.verifySortByArrivalLatest();
-        //Assert.assertEquals(.getPageTitle(), "Las Vegas");
-        //Assert.assertTrue(sort,priceLowest);
+
     }
 }

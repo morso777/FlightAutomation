@@ -25,13 +25,6 @@ public class SearchPage extends BasePage{
     By byDurationIncreasing= By.xpath("//div/select/option[@data-opt-id='DURATION_INCREASING']");
     By byDurationDecreasing= By.xpath("//div/select/option[@data-opt-id='DURATION_DECREASING']");
 
-    //div/select/option[1]
-    //div/select/option[2]
-    //div/select/option[3]
-    //div/select/option[4]
-    //div/select/option[5]
-    //div/select/option[6]
-    //div/select/option[7]
 
     String priceLowest= "Price (Lowest)";
     String priceHighest= "Price (Highest)";
@@ -61,10 +54,6 @@ public class SearchPage extends BasePage{
             if (actual >= 10000L) {
                 System.out.println("element not found");
                 flag = false;
-
-                //getWait().until(ExpectedConditions.elementToBeClickable(bySortDropdown));
-                //ele = driver.findElement(bySortDropdown);
-                //ele.click();
             }
         }
     }

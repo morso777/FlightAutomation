@@ -15,7 +15,6 @@ public class HomePage extends BasePage{
 }
 
 
-
     @FindBy(xpath = "//a[@href='?pwaLob=wizard-flight-pwa']")
     private WebElement flightsButton;
 
@@ -43,10 +42,9 @@ public class HomePage extends BasePage{
     @FindBy(xpath= "//ul/li[@data-index='0']")
     private WebElement LAX;
 
+
     @FindBy(xpath= "//div[@class= 'uitk-typeahead-button-label uitk-type-medium uitk-type-300 truncate']")
     private WebElement losAngeles;
-
-    //By.xpath("//div[@class= 'uitk-typeahead-button-label uitk-type-medium uitk-type-300 truncate']"
 
     @FindBy(xpath= "//button[@aria-label= 'Going to']")
     private WebElement goingTo;
@@ -116,9 +114,38 @@ public class HomePage extends BasePage{
     public void LeavingFrom(String Leaving) throws InterruptedException {
         getWait().until(ExpectedConditions.elementToBeClickable(leavingFrom));
         leavingFrom.sendKeys(Leaving);
+
         getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Las Vegas (LAS - McCarran Intl.)')]")));
         las.click();
-        //leavingFrom.submit();
+
+    }
+
+    public void LeavingFrom2(String Leaving) throws InterruptedException {
+        getWait().until(ExpectedConditions.elementToBeClickable(leavingFrom));
+        leavingFrom.sendKeys(Leaving);
+
+        boolean flag = true;
+        long start = System.currentTimeMillis();
+        while (flag) {
+            try {
+                ele = driver.findElement(By.xpath("//*[contains(text(), 'Las Vegas (LAS - McCarran Intl.)')]"));
+                if (ele.isEnabled()) {
+                    flag = false;
+                }
+            } catch (NoSuchElementException e) {
+            } catch (StaleElementReferenceException e) {
+            } catch (TimeoutException e) {
+            } catch (Exception e) {
+            }
+            long actual = System.currentTimeMillis() - start;
+            if (actual >= 10000L) {
+                System.out.println("element not found ");
+                flag = false;
+            }
+        }
+        getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Las Vegas (LAS - McCarran Intl.)')]")));
+        las.click();
+
     }
 
     public void GoingTo(String Going) throws InterruptedException {
@@ -130,9 +157,9 @@ public class HomePage extends BasePage{
         long start = System.currentTimeMillis();
         while (flag) {
             try {
-                ele = driver.findElement(By.xpath("//*[contains(text(), 'Los Angeles (LAX - Los Angeles Intl.)')]"));
-                //if (ele.isDisplayed()) {
-                if (ele.isDisplayed()) {
+                //ele = driver.findElement(By.xpath("//*[contains(text(), 'Los Angeles (LAX - Los Angeles Intl.)')]"));
+                ele = driver.findElement(By.xpath("//ul/li[@data-index='0']"));
+                if (ele.isEnabled()) {
                     moveToElement(ele);
                     ele.click();
                     flag = false;
@@ -141,42 +168,81 @@ public class HomePage extends BasePage{
             } catch (StaleElementReferenceException e) {
             } catch (TimeoutException e) {
             } catch (Exception e) {
-            }long actual = System.currentTimeMillis() - start;
+            }
+            long actual = System.currentTimeMillis() - start;
             if (actual >= 10000L) {
                 System.out.println("element not found ");
                 flag = false;
             }
-
+        }
+        try {
+            ele = driver.findElement(By.xpath("//ul/li[@data-index='0']"));
+            //moveToElement(ele);
+            //ele.click();
+        } catch (StaleElementReferenceException e) {
+            getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//ul/li[@data-index='0']")));
+            ele = driver.findElement(By.xpath("//ul/li[@data-index='0']"));
+            ele.click();
         }
     }
 
+
     public void GoingTo2(String Going) throws InterruptedException {
+        getWait().until(ExpectedConditions.elementToBeClickable(goingTo));
+        goingTo.sendKeys(Going);
+        goingTo.sendKeys(Keys.RETURN);
+        //goingTo.sendKeys(Keys.ENTER);
+
+        // getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label= 'Going to']")));
+        //ele = driver.findElement(By.xpath("//button[@aria-label= 'Going to']"));
+        //moveToElement(goingTo);
+        //lax.click();
+    }
+
+    public void GoingTo3(String Going) throws InterruptedException {
 
         getWait().until(ExpectedConditions.elementToBeClickable(goingTo));
         goingTo.sendKeys(Going);
-        Thread.sleep(3000);
-        //getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Los Angeles (LAX - Los Angeles Intl.)')]")));
-        //getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul/li[@data-index='0']")));
-        //getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//ul/li[@data-index='0']")));
-        getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), 'Los Angeles (LAX - Los Angeles Intl.)')]")));
-        moveToElement(lax);
-        lax.click();
-        //moveToElement(LAX);
-        //LAX.click();
-        //goingTo.submit();
+
+        boolean flag = true;
+        long start = System.currentTimeMillis();
+        while (flag) {
+            try {
+                //ele = driver.findElement(By.xpath("//*[contains(text(), 'Los Angeles (LAX - Los Angeles Intl.)')]"));
+                ele = driver.findElement(By.xpath("//ul/li[@data-index='0']"));
+                if (ele.isEnabled()) {
+                    moveToElement(ele);
+                    ele.click();
+                    flag = false;
+                }
+            } catch (NoSuchElementException e) {
+            } catch (StaleElementReferenceException e) {
+            } catch (TimeoutException e) {
+            } catch (Exception e) {
+            }
+            long actual = System.currentTimeMillis() - start;
+            if (actual >= 10000L) {
+                System.out.println("element not found ");
+                flag = false;
+            }
+        }
+        try {
+            ele = driver.findElement(By.xpath("//ul/li[@data-index='0']"));
+            moveToElement(ele);
+            ele.click();
+        } catch (StaleElementReferenceException e) {
+            getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//ul/li[@data-index='0']")));
+            ele = driver.findElement(By.xpath("//ul/li[@data-index='0']"));
+            ele.click();
+        }
     }
 
 
 
-    // metodo seleccionar fecha
-
     public void Departing(String date) {
-       // WebDriverWait wait = new WebDriverWait(driver,30);
         getWait().until(ExpectedConditions.elementToBeClickable(departing));
         departing.click();
         departingDay.click();
-        //departing.sendKeys(date);
-
     }
 
     public void Departing2() {
@@ -213,8 +279,9 @@ public class HomePage extends BasePage{
     public void clickSearch() {
         getWait().until(ExpectedConditions.elementToBeClickable(searchButton));
         searchButton.click();
+        waitForPageLoad(driver);
     }
 
-    //method select resultado busqueda
+
 
 }
